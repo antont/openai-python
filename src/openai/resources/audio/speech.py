@@ -12,7 +12,10 @@ from ..._utils import maybe_transform
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper
 from ...types.audio import speech_create_params
-from ..._base_client import HttpxBinaryResponseContent, make_request_options
+from ..._base_client import HttpxBinaryResponseContent, make_request_options, Stream, AsyncStream
+
+#NOTE: this would probably be nice as some kind of Audio or SpeechCompletion Chunk, but those don't exist in the lib, this works now
+from ...types.chat.chat_completion_chunk import ChatCompletionChunk
 
 if TYPE_CHECKING:
     from ..._client import OpenAI, AsyncOpenAI
@@ -41,7 +44,8 @@ class Speech(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HttpxBinaryResponseContent:
+        stream: bool = False
+    ) -> HttpxBinaryResponseContent | Stream[ChatCompletionChunk]:
         """
         Generates audio from the input text.
 
@@ -84,6 +88,8 @@ class Speech(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=HttpxBinaryResponseContent,
+            stream=stream,
+            stream_cls=Stream[ChatCompletionChunk]
         )
 
 
@@ -108,7 +114,8 @@ class AsyncSpeech(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HttpxBinaryResponseContent:
+        stream: bool = False
+    ) -> HttpxBinaryResponseContent | AsyncStream[ChatCompletionChunk]:
         """
         Generates audio from the input text.
 
@@ -151,6 +158,8 @@ class AsyncSpeech(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=HttpxBinaryResponseContent,
+            stream=stream,
+            stream_cls=AsyncStream[ChatCompletionChunk]
         )
 
 
