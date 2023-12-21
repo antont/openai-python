@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-from typing import Any, List, Mapping, TypeVar, cast
+from typing import Any, Mapping, TypeVar, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, override, get_type_hints
 
 import pydantic
 
-from ._utils import (
-    is_list,
-    is_mapping,
+from ._utils import is_list, is_mapping
+from ._typing import (
     is_list_type,
     is_union_type,
     extract_type_arg,
@@ -60,7 +59,7 @@ class PropertyInfo:
 
 
 def maybe_transform(
-    data: Mapping[str, object] | List[Any] | None,
+    data: object,
     expected_type: object,
 ) -> Any | None:
     """Wrapper over `transform()` that allows `None` to be passed.
@@ -168,7 +167,7 @@ def _transform_recursive(
         return data
 
     if isinstance(data, pydantic.BaseModel):
-        return model_dump(data, exclude_unset=True, exclude_defaults=True)
+        return model_dump(data, exclude_unset=True)
 
     return _transform_value(data, annotation)
 

@@ -57,7 +57,9 @@ class Speech(SyncAPIResource):
               `tts-1` or `tts-1-hd`
 
           voice: The voice to use when generating the audio. Supported voices are `alloy`,
-              `echo`, `fable`, `onyx`, `nova`, and `shimmer`.
+              `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are
+              available in the
+              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).
 
           response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, and `flac`.
 
@@ -127,7 +129,9 @@ class AsyncSpeech(AsyncAPIResource):
               `tts-1` or `tts-1-hd`
 
           voice: The voice to use when generating the audio. Supported voices are `alloy`,
-              `echo`, `fable`, `onyx`, `nova`, and `shimmer`.
+              `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are
+              available in the
+              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).
 
           response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, and `flac`.
 
